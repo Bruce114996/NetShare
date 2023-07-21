@@ -10,7 +10,7 @@
         "name": "packet__time",
         "format": "timestamp",
         "encoding": "timestamp",
-        "type" : "unprocessed"
+        "type" : "ungit processed"
       }
     ],
     "metadata": [
