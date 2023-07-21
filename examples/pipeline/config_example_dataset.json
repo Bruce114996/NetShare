@@ -1,0 +1,160 @@
+{
+    "global_config": {
+        "original_data_file": "../../traces/Datasets/dataset.csv",
+        "overwrite": true,
+        "dataset_type": "netflow",
+        "n_chunks": 2,
+        "dp": false
+    },
+    "default": "single_event_per_row.json",
+    "pre_post_processor": {
+        "class": "NetsharePrePostProcessor",
+        "config": {
+            "timestamp": {
+                "column": "packet__time",
+                "generation": true,
+                "encoding": "interarrival",
+                "normalization": "ZERO_ONE"
+            },
+            "word2vec": {
+                "vec_size": 10,
+                "model_name": "word2vec_vecSize",
+                "annoy_n_trees": 100,
+                "pretrain_model_path": null
+            },
+            "metadata": [
+                {
+                    "column": "IP__len", 
+                    "type": "integer", 
+                    "encoding": "bit", 
+                    "n_bits": 32,
+                    "categorical_mapping": false
+                },  
+                {
+                    "column": "IP__src_s",
+                    "type": "integer",
+                    "encoding": "bit",
+                    "n_bits": 32,
+                    "categorical_mapping": false
+                }, 
+                {
+                    "column": "IP__dst_s",
+                    "type": "integer",
+                    "encoding": "bit",
+                    "n_bits": 32,
+                    "categorical_mapping": false
+                },
+                {
+                    "column": "IP__p",
+                    "type": "integer",
+                    "encoding": "bit",
+                    "n_bits": 32,
+                    "categorical_mapping": false
+                },
+                {
+                    "column": "packet__dst",
+                    "type": "string", 
+                    "encoding": "categorical"
+                }, 
+                {
+                    "column": "packet__src",
+                    "type": "string", 
+                    "encoding": "categorical"
+                }, 
+                {
+                    "column": "has_Ethernet",
+                    "type": "string",
+                    "encoding": "categorical"
+                },
+                {
+                    "column": "has_IP",
+                    "type": "string",
+                    "encoding": "categorical"
+                },
+                {
+                    "column": "has_TCP",
+                    "type": "string",
+                    "encoding": "categorical"
+                },
+                {
+                    "column": "has_UDP",
+                    "type": "string",
+                    "encoding": "categorical"
+                },
+                {
+                    "column": "has_SSL",
+                    "type": "string",
+                    "encoding": "categorical"
+                },
+                {
+                    "column": "has_HTTP",
+                    "type": "string",
+                    "encoding": "categorical"
+                },
+                {
+                    "column": "UDP__dport",
+                    "type": "string",
+                    "encoding": "categorical"
+                }, 
+                {
+                    "column": "UDP__sport",
+                    "type": "string",
+                    "encoding": "categorical"
+                }, 
+                {
+                    "column": "TCP__seq",
+                    "type": "integer",
+                    "encoding": "bit",
+                    "n_bits": 32,
+                    "categorical_mapping": false
+                },
+                {
+                    "column": "TCP__flags",
+                    "type": "integer",
+                    "encoding": "bit",
+                    "n_bits": 32,
+                    "categorical_mapping": false
+                }, 
+                {
+                    "column": "TCP__sport",
+                    "type": "integer",
+                    "encoding": "word2vec_port"
+                }, 
+                {
+                    "column": "TCP__dport",
+                    "type": "integer",
+                    "encoding": "word2vec_port"
+                }
+            ],
+            "timeseries": [
+                {
+                    "column": "IP__ttl",
+                    "type": "float",
+                    "normalization": "ZERO_ONE",
+                    "log1p_norm": true
+                },
+                {
+                    "column": "packet__len",
+                    "type": "float",
+                    "normalization": "ZERO_ONE",
+                    "log1p_norm": true
+                }
+            ]
+        }
+    },
+    "model": {
+        "class": "DoppelGANgerTorchModel",
+        "config": {
+            "batch_size": 100,
+            "sample_len": [
+                1,
+                5,
+                10
+            ],
+            "sample_len_expand": true,
+            "epochs": 40,
+            "extra_checkpoint_freq": 1,
+            "epoch_checkpoint_freq": 5
+        }
+    }
+}

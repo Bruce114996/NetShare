@@ -1,0 +1,40 @@
+{
+
+    "metadata" : {
+        "IP__len": {"format": "integer", "encoding": "bit"}, 
+        "IP__src_s": {"format": "IP", "encoding": "bit", "type": "IPv4"},
+        "IP__dst_s": {"format": "IP", "encoding": "bit", "type": "IPv4"}, 
+        "IP__p": {"format": "integer", "encoding": "word_proto"},
+        "IP__type": {"format": "integer", "encoding": "bit"},
+        "Label": {"format": "string", "encoding": "categorical"}, 
+        "packet__layers" : {"format": "list", "encoding": "list_attributes",
+                    "names": ["Ethernet", "IP", "TCP"]},
+        "UDP__dport": {"format": "integer", "encoding": "word_port"},
+        "UDP__sport": {"format": "integer", "encoding": "word_port"},
+        "TCP__seq": {"format": "integer", "encoding": "bit"},
+        "TCP__flags": {"format": "integer", "encoding": "bit"}, 
+        "TCP__sport": {"format": "integer", "encoding": "word_port"},
+        "TCP__dport": {"format": "integer", "encoding": "word_port"}, 
+        "DNS__query": {"format": "integer", "encoding": "bit"},  
+        "DNS__an": {"format": "integer", "encoding": "bit"}, 
+        "DNS__dlen": {"format": "integer", "encoding": "bit"},  
+        "DNS__ttl": {"format": "integer", "encoding": "bit"}, 
+        "DNS__opcode": {"format": "integer", "encoding": "bit"},   
+        "DNS__type": {"format": "integer", "encoding": "bit"}, 
+        "IEEE__type": {"format": "integer", "encoding": "bit"}, 
+        "IEEE__dsr": {"format": "integer", "encoding": "bit"}, 
+        "MQTT__mlen":  {"format": "integer", "encoding": "bit"}
+    },
+    "timeseries" : {
+        "IP__ttl": {"format": "float", "encoding": "float"}, 
+        "packet__len": {"format": "float", "encoding": "float"},
+        "DNS__answers" : {"format": "list", "encoding": "list_values", 
+        "names": {"name": "string", "type":"bit", "cls":"bit", "ttl":"bit", "dlen":"bit", "address":"string"}
+        }
+    },
+    
+    "timestamp" : {
+        "packet__time": {"format": "timestamp", "encoding": "timestamp"}
+    }
+
+}

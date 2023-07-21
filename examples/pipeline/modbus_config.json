@@ -1,0 +1,56 @@
+{
+  "input_file": {
+    "path": "../../traces/Datasets/modbus.log",
+    "format": "zeek_json_log"
+  },
+  "output_file": "../../traces/Datasets/modbus.csv",
+  "fields": {
+    "timestamp": [
+      {
+        "name": "ts",
+        "parse": "second2micro",
+        "to": "time",
+        "format": "integer",
+        "encoding": "timestamp"
+      }
+    ],
+    "metadata": [
+      {
+        "name": "id.orig_h",
+        "parse": "ip_quad2int",
+        "to": "srcip",
+        "format": "integer",
+        "encoding": "bit"
+      },
+      {
+        "name": "id.orig_p",
+        "to": "srcport",
+        "format": "integer",
+        "encoding": "word_port"
+      },
+      {
+        "name": "id.resp_h",
+        "parse": "ip_quad2int",
+        "to": "dstip",
+        "format": "integer",
+        "abnormal": true,
+        "encoding": "bit"
+      },
+      {
+        "name": "id.resp_p",
+        "to": "dstport",
+        "format": "integer",
+        "encoding": "word_port"
+      }
+    ],
+    "timeseries": [
+      {
+        "name": "func",
+        "parse": "modbus_func2code",
+        "to": "funccode",
+        "format": "integer",
+        "encoding": "categorical"
+      }
+    ]
+  }
+}
